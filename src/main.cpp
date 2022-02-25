@@ -2,6 +2,7 @@
 
 void display();
 void idle();
+void keyboard_event_listener(unsigned char key, int x, int y);
 void reshape(GLsizei w, GLsizei h);
 
 int main(int argc, char **argv) {
@@ -14,6 +15,7 @@ int main(int argc, char **argv) {
   glutReshapeFunc(reshape);
   glutDisplayFunc(display);
   glutIdleFunc(idle);
+  glutKeyboardFunc(keyboard_event_listener);
   glEnable(GL_DEPTH_TEST);
 
   glutMainLoop();
@@ -26,6 +28,17 @@ void display() {
 }
 
 void idle() { glutPostRedisplay(); }
+
+void keyboard_event_listener(unsigned char key, int x, int y) {
+  switch (key) {
+  case '': // Ctrl+w
+  case '': // Ctrl+q
+    if (!(glutGetModifiers() & (GLUT_ACTIVE_ALT | GLUT_ACTIVE_SHIFT))) {
+      glutLeaveMainLoop();
+    }
+    break;
+  }
+}
 
 void reshape(GLsizei width, GLsizei height) {
   width = width ? width : 1;
