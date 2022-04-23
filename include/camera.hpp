@@ -41,7 +41,10 @@ class Camera {
 
     // ======================== Everything else ===============================
     void change_angle(GLint horizontal_offset, GLint vertical_offset);
+    // Absolute position
     void change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offset);
+    // Relative to the camera view (negative number means opposite direction)
+    void move(GLfloat right, GLfloat up, GLfloat forward, GLfloat speed);
 
     Vector3 look_at();
     Vector3 look_vector();

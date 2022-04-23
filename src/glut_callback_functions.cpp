@@ -12,6 +12,27 @@
 
 extern Camera camera;
 
+void move_camera(int) {
+  GLfloat speed = 0.3;
+  Vector3 move_vector;
+  if (key_pressed[GLint('d')] or key_pressed[GLint('D')]) {
+    move_vector.x += 1;
+  }
+  if (key_pressed[GLint('a')] or key_pressed[GLint('A')]) {
+    move_vector.x -= 1;
+  }
+  if (key_pressed[GLint('w')] or key_pressed[GLint('W')]) {
+    move_vector.z += 1;
+  }
+  if (key_pressed[GLint('s')] or key_pressed[GLint('S')]) {
+    move_vector.z -= 1;
+  }
+  camera.move(move_vector.x, 0, move_vector.z, speed);
+
+  // Check for keys state every 1 ms
+  glutTimerFunc(1, move_camera, 0);
+}
+
 void display() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glClearColor(0, 0, 0, 1);
@@ -71,8 +92,9 @@ void idle() {
   glutPostRedisplay();
 }
 
-void keyboard_event_listener(GLubyte key, GLint x, GLint y) {
+void keyboard_key_down_event_listener(GLubyte key, GLint x, GLint y) {
   GLint modifiers = glutGetModifiers();
+  key_pressed[key] = true;
   switch (key) {
     case '': // Ctrl+w
     case '': // Ctrl+q
@@ -86,6 +108,10 @@ void keyboard_event_listener(GLubyte key, GLint x, GLint y) {
       }
       break;
   }
+}
+
+void keyboard_key_up_event_listener(GLubyte key, GLint x, GLint y) {
+  key_pressed[key] = false;
 }
 
 void keyboard_special_keys_event_listener(GLint key, GLint x, GLint y) {

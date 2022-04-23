@@ -7,6 +7,8 @@ extern const GLfloat FOV;
 extern const GLfloat NEAR;
 extern const GLfloat FAR;
 
+extern bool key_pressed[256];
+
 // Horizontal/vertical
 struct HorVerFloat {
     GLfloat horizontal, vertical;

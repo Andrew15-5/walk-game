@@ -95,6 +95,17 @@ void Camera::change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offse
   position.z += z_offset;
 }
 
+void Camera::move(GLfloat right, GLfloat up, GLfloat forward, GLfloat speed) {
+  Vector3 forward_vector = this->look_vector();
+  Vector3 up_vector = this->up();
+  Vector3 right_vector = up_vector.cross(forward_vector);
+  forward_vector.z *= -1;
+  right_vector.z *= -1;
+  position += right_vector * right * speed;
+  position += up_vector * up * speed;
+  position += forward_vector * forward * speed;
+}
+
 Vector3 Camera::look_vector() {
   GLfloat horizontal_angle = angle.horizontal;
   return Vector3(sin(horizontal_angle), 0, cos(horizontal_angle));
