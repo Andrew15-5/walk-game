@@ -25,6 +25,18 @@ struct Vector3 {
       return x * v.x + y * v.y + z * v.z;
     }
 
+    Vector3 operator*(GLfloat value) const {
+      return Vector3(x * value, y * value, z * value);
+    }
+
+    Vector3 operator+(const Vector3 &v) const {
+      return Vector3(x + v.x, y + v.y, z + v.z);
+    }
+
+    Vector3 operator+=(const Vector3 &v) {
+      return *this = *this + v;
+    }
+
     bool operator==(const Vector3 &v) const {
       return (x == v.x and y == v.y and z == v.z);
     }
