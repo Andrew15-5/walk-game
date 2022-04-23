@@ -24,9 +24,12 @@ int main(int argc, char **argv) {
   glutSpecialFunc(keyboard_special_keys_event_listener);
   glutPassiveMotionFunc(mouse_move_event_listener);
 
-  glEnable(GL_DEPTH_TEST);
-  glutSetCursor(GLUT_CURSOR_NONE);
+  // Enable capabilities
   glEnable(GL_CULL_FACE);
+  glEnable(GL_DEPTH_TEST);
+
+  // Hide cursor
+  glutSetCursor(GLUT_CURSOR_NONE);
 
   glutMainLoop();
 }
