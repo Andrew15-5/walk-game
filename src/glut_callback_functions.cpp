@@ -53,16 +53,16 @@ void idle() {
 }
 
 void keyboard_event_listener(GLubyte key, GLint x, GLint y) {
+  GLint modifiers = glutGetModifiers();
   switch (key) {
     case '': // Ctrl+w
     case '': // Ctrl+q
-      if (!(glutGetModifiers() & (GLUT_ACTIVE_ALT | GLUT_ACTIVE_SHIFT))) {
+      if (modifiers == GLUT_ACTIVE_CTRL) {
         glutLeaveMainLoop();
       }
       break;
     case 13: // Alt+Enter
-      if ((glutGetModifiers() & GLUT_ACTIVE_ALT) and
-          !(glutGetModifiers() & (GLUT_ACTIVE_CTRL | GLUT_ACTIVE_SHIFT))) {
+      if (modifiers == GLUT_ACTIVE_ALT) {
         glutFullScreenToggle();
       }
       break;
@@ -70,11 +70,11 @@ void keyboard_event_listener(GLubyte key, GLint x, GLint y) {
 }
 
 void keyboard_special_keys_event_listener(GLint key, GLint x, GLint y) {
+  GLint modifiers = glutGetModifiers();
   switch (key) {
     case GLUT_KEY_F11: // Ctrl+F11 / Ctrl+Shift+F11
-      if (((glutGetModifiers() & GLUT_ACTIVE_CTRL) or
-           (glutGetModifiers() & GLUT_ACTIVE_CTRL & GLUT_ACTIVE_SHIFT)) and
-          !(glutGetModifiers() & GLUT_ACTIVE_ALT)) {
+      if (modifiers == GLUT_ACTIVE_CTRL or
+          modifiers == (GLUT_ACTIVE_CTRL | GLUT_ACTIVE_SHIFT)) {
         glutFullScreenToggle();
       }
       break;
