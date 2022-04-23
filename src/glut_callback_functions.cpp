@@ -1,11 +1,15 @@
 #include "include/glut_callback_functions.hpp"
 
+#include "include/camera.hpp"
 #include "include/draw_functions.hpp"
+#include "include/global.hpp"
 #include "include/global_gl.hpp"
 
 #include <cmath>
 
 #include <GL/freeglut.h>
+
+extern Camera camera;
 
 void display() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -13,6 +17,14 @@ void display() {
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+
+  const Vector3 &cam_look_at = camera.look_at();
+  const Vector3 &cam_pos = camera.position;
+  const Vector3 &cam_up = camera.up;
+
+  gluLookAt(cam_pos.x, cam_pos.y, cam_pos.z,
+            cam_look_at.x, cam_look_at.y, cam_look_at.z,
+            cam_up.x, cam_up.y, cam_up.z);
 
   // Front/right/back/left/bottom/top
   // green/red/blue/orange/yellow/white
@@ -25,10 +37,12 @@ void display() {
       {0.5f, 0.5f, 0.5f}};
 
   glPushMatrix();
-  glTranslatef(0, 0, -8);
   glRotatef(45, 1, -1, 0);
   draw_cube(5, color);
   glPopMatrix();
+
+  // Move cursor to the center of window every drawn frame
+  glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 
   glutSwapBuffers();
 }
@@ -46,6 +60,14 @@ void keyboard_event_listener(GLubyte key, GLint x, GLint y) {
       }
       break;
   }
+}
+
+void mouse_move_event_listener(GLint x, GLint y) {
+  Vector2 cursor_move_offset;
+  cursor_move_offset.x = x - int(glutGet(GLUT_WINDOW_WIDTH) / 2);
+  cursor_move_offset.y = y - int(glutGet(GLUT_WINDOW_HEIGHT) / 2);
+  camera.angle.horizontal += cursor_move_offset.x;
+  camera.angle.vertical += cursor_move_offset.y;
 }
 
 void reshape(GLsizei width, GLsizei height) {
