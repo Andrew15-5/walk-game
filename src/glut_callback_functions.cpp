@@ -20,8 +20,8 @@ void display() {
   glLoadIdentity();
 
   const Vector3 &cam_look_at = camera.look_at();
-  const Vector3 &cam_pos = camera.position;
-  const Vector3 &cam_up = camera.up;
+  const Vector3 &cam_pos = camera.get_position();
+  const Vector3 &cam_up = camera.up();
 
   gluLookAt(cam_pos.x, cam_pos.y, cam_pos.z,
             cam_look_at.x, cam_look_at.y, cam_look_at.z,
@@ -85,8 +85,7 @@ void mouse_move_event_listener(GLint x, GLint y) {
   Vector2 cursor_move_offset;
   cursor_move_offset.x = x - int(glutGet(GLUT_WINDOW_WIDTH) / 2);
   cursor_move_offset.y = y - int(glutGet(GLUT_WINDOW_HEIGHT) / 2);
-  camera.angle.horizontal += cursor_move_offset.x;
-  camera.angle.vertical += cursor_move_offset.y;
+  camera.change_angle(cursor_move_offset.x, cursor_move_offset.y);
 }
 
 void reshape(GLsizei width, GLsizei height) {

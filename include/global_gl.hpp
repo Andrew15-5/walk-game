@@ -8,9 +8,16 @@ extern const GLfloat NEAR;
 extern const GLfloat FAR;
 
 // Horizontal/vertical
-struct HorVer {
+struct HorVerFloat {
     GLfloat horizontal, vertical;
-    HorVer(GLfloat horizontal = 0, GLfloat vertical = 0)
+    HorVerFloat(GLfloat horizontal = 0, GLfloat vertical = 0)
+        : horizontal(horizontal), vertical(vertical) {}
+};
+
+// Horizontal/vertical
+struct HorVerInt {
+    GLint horizontal, vertical;
+    HorVerInt(GLint horizontal = 0, GLint vertical = 0)
         : horizontal(horizontal), vertical(vertical) {}
 };
 

@@ -7,8 +7,8 @@
 Camera camera;
 
 int main(int argc, char **argv) {
-  camera.position.z = 8;
-  camera.sensitivity.horizontal = horizontal_sensetivity;
+  camera.change_position(0, 0, 8);
+  camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 

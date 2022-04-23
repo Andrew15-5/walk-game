@@ -6,41 +6,46 @@
 
 #include <cmath>
 
-struct Camera {
-    HorVer angle, sensitivity;
-    Vector3 position, up{0, 1, 0};
+class Camera {
+    HorVerFloat angle; // Unit: rad [-2π;2π]
+    HorVerInt mouse_sensitivity; // Unit: % [1;100]
+    Vector3 position; // Unit: px
 
-    Camera(Vector3 position = {0, 0, 0}, HorVer angle = {0, 0}, HorVer sensitivity = {100, 100})
-        : angle(angle), sensitivity(sensitivity), position(position) {}
+    // ========================== Normilizers =================================
+    void normalize_angles();
+    void normalize_sensitivity();
 
-    HorVer normalize_angles() {
-      GLfloat horizontal_angle = this->angle.horizontal / 180.0f * M_PI *
-                                 (sensitivity.horizontal / 100.0f);
-      GLfloat vertical_angle = 0;
-      return HorVer(horizontal_angle, vertical_angle);
-    }
+    // =========================== Converters =================================
+    GLfloat px_to_rad_multiplier();
 
-    Vector3 look_at() {
-      GLfloat horizontal_angle = normalize_angles().horizontal;
-      return Vector3(position.x + sin(horizontal_angle),
-                     0,
-                     position.z - cos(horizontal_angle));
-    }
+  public:
+    // ========================== Constructors ================================
+    Camera(const Vector3 &position = {0, 0, 0},
+           const HorVerFloat &angle = {0, 0},
+           const HorVerInt &mouse_sensitivity = {100, 100});
 
-    void change_angle(GLfloat horizontal_offset, GLfloat vertical_offset) {
-      angle.horizontal = horizontal_offset;
-      if (std::abs(normalize_angles().horizontal) > 2 * M_PI) {
-        angle.horizontal = 0;
-      }
-    }
+    // ============================ Getters ===================================
+    HorVerFloat get_angle_rad() const;
+    Vector3 get_position() const;
+    HorVerInt get_sensitivity() const;
 
-    void set_angle(GLfloat horizontal, GLfloat vertical) {
-      angle.horizontal += horizontal;
-      if (std::abs(normalize_angles().horizontal) > 2 * M_PI) {
-        // angle.horizontal = 0;
-        angle.horizontal = angle.horizontal - ((angle.horizontal < 0) * -2 + 1) * M_PI;
-      }
-    }
+    // ============================ Setters ===================================
+    void set_angle(const HorVerFloat &angle);
+    void set_angle(GLfloat horizontal, GLint vertical);
+
+    void set_position(const Vector3 &position);
+    void set_position(GLfloat x, GLfloat y, GLfloat z);
+
+    void set_mouse_sensitivity(const HorVerInt &mouse_sensitivity);
+    void set_mouse_sensitivity(GLint horizontal, GLint vertical);
+
+    // ======================== Everything else ===============================
+    void change_angle(GLint horizontal_offset, GLint vertical_offset);
+    void change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offset);
+
+    Vector3 look_at();
+    Vector3 look_vector();
+    Vector3 up();
 };
 
 #endif
