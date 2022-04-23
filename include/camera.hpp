@@ -2,6 +2,7 @@
 #define CAMERA_HPP
 
 #include "include/global_gl.hpp"
+#include "include/vector3.hpp"
 
 #include <cmath>
 

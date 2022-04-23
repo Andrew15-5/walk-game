@@ -14,16 +14,4 @@ struct HorVer {
         : horizontal(horizontal), vertical(vertical) {}
 };
 
-struct Vector2 {
-    GLfloat x, y;
-    Vector2(GLfloat x = 0, GLfloat y = 0)
-        : x(x), y(y) {}
-};
-
-struct Vector3 {
-    GLfloat x = 0, y = 0, z = 0;
-    Vector3(GLfloat x = 0, GLfloat y = 0, GLfloat z = 0)
-        : x(x), y(y), z(z) {}
-};
-
 #endif
