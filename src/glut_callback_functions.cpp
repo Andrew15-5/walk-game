@@ -59,6 +59,24 @@ void keyboard_event_listener(GLubyte key, GLint x, GLint y) {
         glutLeaveMainLoop();
       }
       break;
+    case 13: // Alt+Enter
+      if ((glutGetModifiers() & GLUT_ACTIVE_ALT) and
+          !(glutGetModifiers() & (GLUT_ACTIVE_CTRL | GLUT_ACTIVE_SHIFT))) {
+        glutFullScreenToggle();
+      }
+      break;
+  }
+}
+
+void keyboard_special_keys_event_listener(GLint key, GLint x, GLint y) {
+  switch (key) {
+    case GLUT_KEY_F11: // Ctrl+F11 / Ctrl+Shift+F11
+      if (((glutGetModifiers() & GLUT_ACTIVE_CTRL) or
+           (glutGetModifiers() & GLUT_ACTIVE_CTRL & GLUT_ACTIVE_SHIFT)) and
+          !(glutGetModifiers() & GLUT_ACTIVE_ALT)) {
+        glutFullScreenToggle();
+      }
+      break;
   }
 }
 

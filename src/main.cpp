@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
   glutDisplayFunc(display);
   glutIdleFunc(idle);
   glutKeyboardFunc(keyboard_event_listener);
+  glutSpecialFunc(keyboard_special_keys_event_listener);
   glutPassiveMotionFunc(mouse_move_event_listener);
 
   glEnable(GL_DEPTH_TEST);

@@ -6,6 +6,7 @@
 void display();
 void idle();
 void keyboard_event_listener(GLubyte key, GLint x, GLint y);
+void keyboard_special_keys_event_listener(GLint key, GLint x, GLint y);
 void mouse_move_event_listener(GLint x, GLint y);
 void reshape(GLsizei w, GLsizei h);
 
