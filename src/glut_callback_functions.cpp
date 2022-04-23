@@ -37,9 +37,28 @@ void display() {
       {0.5f, 0.5f, 0.0f},
       {0.5f, 0.5f, 0.5f}};
 
+  auto cube_size = 5;
   glPushMatrix();
   glRotatef(45, 1, -1, 0);
-  draw_cube(5, color);
+  draw_cube(cube_size, color);
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(cube_size * 2, 0, 0);
+  glRotatef(-45, 1, -1, 0);
+  draw_cube(cube_size, color);
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(-cube_size * 2, 0, -cube_size);
+  glRotatef(10, 1, -1, 0);
+  draw_cube(cube_size, color);
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(-2 * cube_size, 0, cube_size);
+  glRotatef(180, 0, 1, 0);
+  draw_cube(cube_size, color);
   glPopMatrix();
 
   // Move cursor to the center of window every drawn frame
