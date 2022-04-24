@@ -76,6 +76,24 @@ void display() {
   draw_cube(cube_size, color);
   glPopMatrix();
 
+  glLineWidth(2);
+  glBegin(GL_LINES);
+  // X axis: Red
+  glColor3f(1.0f, 0.0f, 0.0f);
+  glVertex3f(0, 0, 0);
+  glVertex3f(1000, 0, 0);
+
+  // Y axis: Green
+  glColor3f(0.0f, 1.0f, 0.0f);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, 1000, 0);
+
+  // Z axis: Blue
+  glColor3f(0.0f, 0.0f, 1.0f);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, 0, 1000);
+  glEnd();
+
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 

@@ -7,6 +7,8 @@
 
 Camera camera;
 
+// Note: Z axis is inverted (-z is forward)
+
 int main(GLint argc, GLchar **argv) {
   // Initialization
   for (GLint i = 0; i < 256; i++) {
