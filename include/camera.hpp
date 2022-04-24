@@ -45,6 +45,9 @@ class Camera {
     Vector3 right_vector();
     Vector3 up_vector();
 
+    // ========================== Convenience =================================
+    void call_gluLookAt();
+
     // ======================== Everything else ===============================
     void change_angle(GLint horizontal_offset, GLint vertical_offset);
     // Absolute position

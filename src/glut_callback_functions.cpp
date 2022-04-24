@@ -40,13 +40,7 @@ void display() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  const Vector3 &cam_look_at = camera.look_at();
-  const Vector3 &cam_pos = camera.get_position();
-  const Vector3 &cam_up = camera.up_vector();
-
-  gluLookAt(cam_pos.x, cam_pos.y, cam_pos.z,
-            cam_look_at.x, cam_look_at.y, cam_look_at.z,
-            cam_up.x, cam_up.y, cam_up.z);
+  camera.call_gluLookAt();
 
   // Front/right/back/left/bottom/top
   // green/red/blue/orange/yellow/white

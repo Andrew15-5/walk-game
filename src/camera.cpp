@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include <GL/glu.h>
+
 // ============================================================================
 // =============================== Private ====================================
 // ============================================================================
@@ -109,6 +111,15 @@ Vector3 Camera::right_vector() {
 
 Vector3 Camera::up_vector() {
   return right_vector().cross(look_vector());
+}
+
+// ============================ Convenience ===================================
+void Camera::call_gluLookAt() {
+  Vector3 center = look_at();
+  Vector3 up = up_vector();
+  gluLookAt(position.x, position.y, position.z,
+            center.x, center.y, center.z,
+            up.x, up.y, up.z);
 }
 
 // ========================== Everything else =================================
