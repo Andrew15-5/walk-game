@@ -42,7 +42,7 @@ void display() {
 
   const Vector3 &cam_look_at = camera.look_at();
   const Vector3 &cam_pos = camera.get_position();
-  const Vector3 &cam_up = camera.up();
+  const Vector3 &cam_up = camera.up_vector();
 
   gluLookAt(cam_pos.x, cam_pos.y, cam_pos.z,
             cam_look_at.x, cam_look_at.y, cam_look_at.z,

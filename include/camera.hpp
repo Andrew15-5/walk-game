@@ -33,11 +33,16 @@ class Camera {
     void set_angle(const HorVerFloat &angle);
     void set_angle(GLfloat horizontal, GLint vertical);
 
+    void set_mouse_sensitivity(const HorVerInt &mouse_sensitivity);
+    void set_mouse_sensitivity(GLint horizontal, GLint vertical);
+
     void set_position(const Vector3 &position);
     void set_position(GLfloat x, GLfloat y, GLfloat z);
 
-    void set_mouse_sensitivity(const HorVerInt &mouse_sensitivity);
-    void set_mouse_sensitivity(GLint horizontal, GLint vertical);
+    // ======================= Calculate vector ===============================
+    Vector3 look_vector();
+    Vector3 look_at();
+    Vector3 up_vector();
 
     // ======================== Everything else ===============================
     void change_angle(GLint horizontal_offset, GLint vertical_offset);
@@ -45,10 +50,6 @@ class Camera {
     void change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offset);
     // Relative to the camera view (negative number means opposite direction)
     void move(GLfloat right, GLfloat up, GLfloat forward, GLfloat speed);
-
-    Vector3 look_at();
-    Vector3 look_vector();
-    Vector3 up();
 };
 
 #endif

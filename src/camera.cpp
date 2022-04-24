@@ -46,14 +46,6 @@ void Camera::set_angle(GLfloat horizontal, GLint vertical) {
   set_angle(HorVerFloat(horizontal, vertical));
 }
 
-void Camera::set_position(const Vector3 &position) {
-  this->position = position;
-}
-
-void Camera::set_position(GLfloat x, GLfloat y, GLfloat z) {
-  position = Vector3(x, y, z);
-}
-
 void Camera::set_mouse_sensitivity(const HorVerInt &mouse_sensitivity) {
   this->mouse_sensitivity = mouse_sensitivity;
   normalize_sensitivity();
@@ -61,6 +53,14 @@ void Camera::set_mouse_sensitivity(const HorVerInt &mouse_sensitivity) {
 
 void Camera::set_mouse_sensitivity(GLint horizontal, GLint vertical) {
   set_mouse_sensitivity(HorVerInt(horizontal, vertical));
+}
+
+void Camera::set_position(const Vector3 &position) {
+  this->position = position;
+}
+
+void Camera::set_position(GLfloat x, GLfloat y, GLfloat z) {
+  position = Vector3(x, y, z);
 }
 
 // ============================ Normilizers ===================================
@@ -82,6 +82,23 @@ void Camera::normalize_sensitivity() {
   v_sensitivity = std::max(1, std::min(100, v_sensitivity));
 }
 
+// ========================= Calculate vector =================================
+Vector3 Camera::look_vector() {
+  GLfloat horizontal_angle = angle.horizontal;
+  return Vector3(sin(horizontal_angle), 0, cos(horizontal_angle));
+}
+
+Vector3 Camera::look_at() {
+  Vector3 look_vector = this->look_vector();
+  return Vector3(position.x + look_vector.x,
+                 0,
+                 position.z - look_vector.z);
+}
+
+Vector3 Camera::up_vector() {
+  return Vector3(0, 1, 0);
+}
+
 // ========================== Everything else =================================
 void Camera::change_angle(GLint horizontal_offset, GLint vertical_offset) {
   angle.horizontal += horizontal_offset * px_to_rad_multiplier().horizontal;
@@ -101,27 +118,11 @@ void Camera::change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offse
 
 void Camera::move(GLfloat right, GLfloat up, GLfloat forward, GLfloat speed) {
   Vector3 forward_vector = this->look_vector();
-  Vector3 up_vector = this->up();
+  Vector3 up_vector = this->up_vector();
   Vector3 right_vector = up_vector.cross(forward_vector);
   forward_vector.z *= -1;
   right_vector.z *= -1;
   position += right_vector * right * speed;
   position += up_vector * up * speed;
   position += forward_vector * forward * speed;
-}
-
-Vector3 Camera::look_vector() {
-  GLfloat horizontal_angle = angle.horizontal;
-  return Vector3(sin(horizontal_angle), 0, cos(horizontal_angle));
-}
-
-Vector3 Camera::look_at() {
-  Vector3 look_vector = this->look_vector();
-  return Vector3(position.x + look_vector.x,
-                 0,
-                 position.z - look_vector.z);
-}
-
-Vector3 Camera::up() {
-  return Vector3(0, 1, 0);
 }
