@@ -86,14 +86,15 @@ void Camera::normalize_sensitivity() {
 
 // ========================= Calculate vector =================================
 Vector3 Camera::look_vector() {
-  GLfloat horizontal_angle = angle.horizontal;
-  return Vector3(sin(horizontal_angle), 0, -cos(horizontal_angle));
+  return Vector3(sin(angle.horizontal) * cos(angle.vertical),
+                 sin(angle.vertical),
+                 -cos(angle.horizontal) * cos(angle.vertical));
 }
 
 Vector3 Camera::look_at() {
   Vector3 look_vector = this->look_vector();
   return Vector3(position.x + look_vector.x,
-                 0,
+                 position.y + look_vector.y,
                  position.z + look_vector.z);
 }
 

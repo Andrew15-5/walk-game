@@ -141,7 +141,7 @@ void keyboard_special_keys_event_listener(GLint key, GLint x, GLint y) {
 void mouse_move_event_listener(GLint x, GLint y) {
   Vector2 cursor_move_offset;
   cursor_move_offset.x = x - int(glutGet(GLUT_WINDOW_WIDTH) / 2);
-  cursor_move_offset.y = y - int(glutGet(GLUT_WINDOW_HEIGHT) / 2);
+  cursor_move_offset.y = int(glutGet(GLUT_WINDOW_HEIGHT) / 2) - y;
   camera.change_angle(cursor_move_offset.x, cursor_move_offset.y);
 }
 
