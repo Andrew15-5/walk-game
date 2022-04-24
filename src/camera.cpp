@@ -85,18 +85,30 @@ void Camera::normalize_sensitivity() {
 // ========================= Calculate vector =================================
 Vector3 Camera::look_vector() {
   GLfloat horizontal_angle = angle.horizontal;
-  return Vector3(sin(horizontal_angle), 0, cos(horizontal_angle));
+  return Vector3(sin(horizontal_angle), 0, -cos(horizontal_angle));
 }
 
 Vector3 Camera::look_at() {
   Vector3 look_vector = this->look_vector();
   return Vector3(position.x + look_vector.x,
                  0,
-                 position.z - look_vector.z);
+                 position.z + look_vector.z);
+}
+
+Vector3 Camera::right_vector() {
+  // The easiest and safest way to calculate right vector is to get a cross
+  // product of camera's forward vector (without vertical angle) and absolute
+  // up vector. That way if camera's look vector equals to absolute up vector
+  // we won't get a zero vector.
+  const Vector3 absolute_up = Vector3(0, 1, 0);
+  Vector3 forward_vector = Vector3(sin(angle.horizontal),
+                                   0,
+                                   -cos(angle.horizontal));
+  return forward_vector.cross(absolute_up);
 }
 
 Vector3 Camera::up_vector() {
-  return Vector3(0, 1, 0);
+  return right_vector().cross(look_vector());
 }
 
 // ========================== Everything else =================================
@@ -117,12 +129,7 @@ void Camera::change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offse
 }
 
 void Camera::move(GLfloat right, GLfloat up, GLfloat forward, GLfloat speed) {
-  Vector3 forward_vector = this->look_vector();
-  Vector3 up_vector = this->up_vector();
-  Vector3 right_vector = up_vector.cross(forward_vector);
-  forward_vector.z *= -1;
-  right_vector.z *= -1;
-  position += right_vector * right * speed;
-  position += up_vector * up * speed;
-  position += forward_vector * forward * speed;
+  position += right_vector() * right * speed;
+  position += up_vector() * up * speed;
+  position += look_vector() * forward * speed;
 }

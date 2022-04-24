@@ -42,6 +42,7 @@ class Camera {
     // ======================= Calculate vector ===============================
     Vector3 look_vector();
     Vector3 look_at();
+    Vector3 right_vector();
     Vector3 up_vector();
 
     // ======================== Everything else ===============================
