@@ -7,8 +7,9 @@
 // ============================================================================
 
 // ============================= Converters ===================================
-GLfloat Camera::px_to_rad_multiplier() {
-  return M_PI * (mouse_sensitivity.horizontal / 100.0f) / 180.0f;
+HorVerFloat Camera::px_to_rad_multiplier() {
+  return HorVerFloat(M_PI * (mouse_sensitivity.horizontal / 100.0f) / 180.0f,
+                     M_PI * (mouse_sensitivity.vertical / 100.0f) / 180.0f);
 }
 
 // ============================================================================
@@ -69,8 +70,8 @@ void Camera::normalize_angles() {
   while (std::abs(h_angle) > 2 * M_PI) {
     h_angle -= ((h_angle < 0) ? -1 : 1) * 2 * M_PI;
   }
-  while (std::abs(v_angle) > 2 * M_PI) {
-    v_angle -= ((v_angle < 0) ? -1 : 1) * 2 * M_PI;
+  while (std::abs(v_angle) > M_PI_2) {
+    v_angle -= ((v_angle < 0) ? -1 : 1) * M_PI_2;
   }
 }
 
@@ -82,10 +83,13 @@ void Camera::normalize_sensitivity() {
 }
 
 // ========================== Everything else =================================
-
 void Camera::change_angle(GLint horizontal_offset, GLint vertical_offset) {
-  angle.horizontal += horizontal_offset * px_to_rad_multiplier();
-  angle.vertical += vertical_offset * px_to_rad_multiplier();
+  angle.horizontal += horizontal_offset * px_to_rad_multiplier().horizontal;
+  angle.vertical += vertical_offset * px_to_rad_multiplier().vertical;
+  const GLfloat ALMOST_PI_2 = 1.57; // Almost M_PI_2 (Pi / 2)
+  if (std::abs(angle.vertical) > ALMOST_PI_2) {
+    angle.vertical = ((angle.vertical < 0) ? -1 : 1) * ALMOST_PI_2;
+  }
   normalize_angles();
 }
 

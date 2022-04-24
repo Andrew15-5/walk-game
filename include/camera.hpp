@@ -16,7 +16,7 @@ class Camera {
     void normalize_sensitivity();
 
     // =========================== Converters =================================
-    GLfloat px_to_rad_multiplier();
+    HorVerFloat px_to_rad_multiplier();
 
   public:
     // ========================== Constructors ================================
