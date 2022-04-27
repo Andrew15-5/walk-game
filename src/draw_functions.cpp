@@ -34,10 +34,10 @@ void draw_rectangle(GLfloat width, GLfloat height, GLfloat color[3], GLfloat z) 
     glColor3fv(color);
   }
   glBegin(GL_QUADS);
-  glVertex3d(-width / 2, -height / 2, z);
-  glVertex3d(width / 2, -height / 2, z);
-  glVertex3d(width / 2, height / 2, z);
-  glVertex3d(-width / 2, height / 2, z);
+  glVertex3f(-width / 2, -height / 2, z);
+  glVertex3f(width / 2, -height / 2, z);
+  glVertex3f(width / 2, height / 2, z);
+  glVertex3f(-width / 2, height / 2, z);
   glEnd();
 }
 
