@@ -40,6 +40,7 @@ class Camera {
     void set_position(GLfloat x, GLfloat y, GLfloat z);
 
     // ======================= Calculate vector ===============================
+    Vector3 forward_vector();
     Vector3 look_vector();
     Vector3 look_at();
     Vector3 right_vector();

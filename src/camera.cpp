@@ -85,6 +85,12 @@ void Camera::normalize_sensitivity() {
 }
 
 // ========================= Calculate vector =================================
+Vector3 Camera::forward_vector() {
+  return Vector3(sin(angle.horizontal),
+                 0,
+                 -cos(angle.horizontal));
+}
+
 Vector3 Camera::look_vector() {
   return Vector3(sin(angle.horizontal) * cos(angle.vertical),
                  sin(angle.vertical),
@@ -104,10 +110,7 @@ Vector3 Camera::right_vector() {
   // up vector. That way if camera's look vector equals to absolute up vector
   // we won't get a zero vector.
   const Vector3 absolute_up = Vector3(0, 1, 0);
-  Vector3 forward_vector = Vector3(sin(angle.horizontal),
-                                   0,
-                                   -cos(angle.horizontal));
-  return forward_vector.cross(absolute_up);
+  return forward_vector().cross(absolute_up);
 }
 
 Vector3 Camera::up_vector() {
@@ -143,5 +146,5 @@ void Camera::change_position(GLfloat x_offset, GLfloat y_offset, GLfloat z_offse
 void Camera::move(GLfloat right, GLfloat up, GLfloat forward, GLfloat speed) {
   position += right_vector() * right * speed;
   position += up_vector() * up * speed;
-  position += look_vector() * forward * speed;
+  position += forward_vector() * forward * speed;
 }

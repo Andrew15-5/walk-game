@@ -14,7 +14,7 @@ int main(GLint argc, GLchar **argv) {
   for (GLint i = 0; i < 256; i++) {
     key_pressed[i] = false;
   }
-  camera.change_position(0, 0, 8);
+  camera.set_position(0, 4, 8);
   camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
