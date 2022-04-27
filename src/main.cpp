@@ -4,18 +4,23 @@
 #include "include/glut_callback_functions.hpp"
 
 #include <GL/freeglut.h>
+#include <IL/il.h>
+#include <IL/ilu.h>
 
 Camera camera;
 
 // Note: Z axis is inverted (-z is forward)
+
+void load_textures();
 
 int main(GLint argc, GLchar **argv) {
   // Initialization
   for (GLint i = 0; i < 256; i++) {
     key_pressed[i] = false;
   }
-  camera.set_position(0, 4, 8);
+  camera.set_position(0, 8, 8);
   camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
+
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
@@ -43,5 +48,21 @@ int main(GLint argc, GLchar **argv) {
   // Don't repeat keyboard_key_down_event_listener call if key is held down
   glutIgnoreKeyRepeat(true);
 
+  load_textures();
+
   glutMainLoop();
+}
+
+void load_textures() {
+  ilInit();
+  iluInit();
+
+  ilLoadImage("res/textures/floor.png");
+  iluFlipImage();
+
+  glGenTextures(1, &floor_texture_id);
+  glBindTexture(GL_TEXTURE_2D, floor_texture_id);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 174, 174, 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
+
+  ilDeleteImage(floor_texture_id);
 }

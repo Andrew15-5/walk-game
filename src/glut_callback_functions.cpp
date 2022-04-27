@@ -42,40 +42,6 @@ void display() {
 
   camera.call_gluLookAt();
 
-  // Front/right/back/left/bottom/top
-  // green/red/blue/orange/yellow/white
-  GLfloat color[6][3] = {
-      {0.0f, 0.5f, 0.0f},
-      {0.5f, 0.0f, 0.0f},
-      {0.0f, 0.0f, 0.5f},
-      {0.5f, 0.3f, 0.0f},
-      {0.5f, 0.5f, 0.0f},
-      {0.5f, 0.5f, 0.5f}};
-
-  auto cube_size = 5;
-  glPushMatrix();
-  glRotatef(45, 1, -1, 0);
-  draw_cube(cube_size, color);
-  glPopMatrix();
-
-  glPushMatrix();
-  glTranslatef(cube_size * 2, 0, 0);
-  glRotatef(-45, 1, -1, 0);
-  draw_cube(cube_size, color);
-  glPopMatrix();
-
-  glPushMatrix();
-  glTranslatef(-cube_size * 2, 0, -cube_size);
-  glRotatef(10, 1, -1, 0);
-  draw_cube(cube_size, color);
-  glPopMatrix();
-
-  glPushMatrix();
-  glTranslatef(-2 * cube_size, 0, cube_size);
-  glRotatef(180, 0, 1, 0);
-  draw_cube(cube_size, color);
-  glPopMatrix();
-
   glLineWidth(2);
   glBegin(GL_LINES);
   // X axis: Red
@@ -93,6 +59,9 @@ void display() {
   glVertex3f(0, 0, 0);
   glVertex3f(0, 0, 1000);
   glEnd();
+
+  glColor3f(1.0f, 1.0f, 1.0f);
+  draw_floor({-100, 0, 100}, {100, 0, -100}, &floor_texture_id);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);

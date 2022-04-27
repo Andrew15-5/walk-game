@@ -1,5 +1,34 @@
 #include "include/draw_functions.hpp"
 
+#include "include/global_gl.hpp"
+
+void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint *texture_id) {
+  if (texture_id) {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, *texture_id);
+  }
+  GLfloat y = corner.y;
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  GLfloat x_length = std::abs(corner.x - diagonally_opposite_corner.x) / 4;
+  GLfloat z_length = std::abs(corner.z - diagonally_opposite_corner.z) / 4;
+
+  glBegin(GL_QUADS);
+  if (texture_id) glTexCoord2f(0.0f, 0.0f);
+  glVertex3f(corner.x, y, corner.z);
+  if (texture_id) glTexCoord2f(x_length, 0.0f);
+  glVertex3f(diagonally_opposite_corner.x, y, corner.z);
+  if (texture_id) glTexCoord2f(x_length, z_length);
+  glVertex3f(diagonally_opposite_corner.x, y, diagonally_opposite_corner.z);
+  if (texture_id) glTexCoord2f(0.0f, z_length);
+  glVertex3f(corner.x, y, diagonally_opposite_corner.z);
+  glEnd();
+
+  if (texture_id) glDisable(GL_TEXTURE_2D);
+}
+
 void draw_rectangle(GLfloat width, GLfloat height, GLfloat color[3], GLfloat z) {
   if (color) {
     glColor3fv(color);
