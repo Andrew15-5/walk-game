@@ -63,7 +63,7 @@ void display() {
   glColor3f(1.0f, 1.0f, 1.0f);
   const Vector3 left_back = Vector3(-100.0f, 0.0f, 100.0f);
   const Vector3 right_front = Vector3(100.0f, 0.0f, -100.0f);
-  draw_floor(left_back, right_front, floor_texture_id);
+  draw_floor(left_back, right_front, texture_id.floor);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);

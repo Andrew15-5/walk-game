@@ -3,6 +3,8 @@
 #include "include/global_gl.hpp"
 #include "include/glut_callback_functions.hpp"
 
+#include <iostream>
+
 #include <GL/freeglut.h>
 #include <IL/il.h>
 #include <IL/ilu.h>
@@ -53,16 +55,27 @@ int main(GLint argc, GLchar **argv) {
   glutMainLoop();
 }
 
+void load_texture(const std::string &path, GLuint texture_id) {
+  ilLoadImage(path.c_str());
+  ILinfo image_info;
+  iluGetImageInfo(&image_info);
+  iluFlipImage();
+
+  glGenTextures(1, &texture_id);
+  glBindTexture(GL_TEXTURE_2D, texture_id);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
+               image_info.Width,
+               image_info.Height,
+               0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
+
+  ilDeleteImage(texture_id);
+}
+
 void load_textures() {
+  const std::string texture_path = "res/textures";
+
   ilInit();
   iluInit();
 
-  ilLoadImage("res/textures/floor.png");
-  iluFlipImage();
-
-  glGenTextures(1, &floor_texture_id);
-  glBindTexture(GL_TEXTURE_2D, floor_texture_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 174, 174, 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-
-  ilDeleteImage(floor_texture_id);
+  load_texture(texture_path + "/floor.png", texture_id.floor);
 }

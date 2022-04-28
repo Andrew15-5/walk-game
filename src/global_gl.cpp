@@ -6,4 +6,4 @@ const GLfloat FAR = 10000.0f;
 
 bool key_pressed[256];
 
-GLuint floor_texture_id = 0;
+TextureId texture_id;

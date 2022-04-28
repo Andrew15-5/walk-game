@@ -9,7 +9,9 @@ extern const GLfloat FAR;
 
 extern bool key_pressed[256];
 
-extern GLuint floor_texture_id;
+extern struct TextureId {
+    GLuint floor = 1;
+} texture_id;
 
 // Horizontal/vertical
 struct HorVerFloat {
