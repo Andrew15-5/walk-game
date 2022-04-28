@@ -34,7 +34,7 @@ Vector3 Camera::get_position() const {
   return position;
 }
 
-HorVerInt Camera::get_sensitivity() const {
+HorVerInt Camera::get_mouse_sensitivity() const {
   return mouse_sensitivity;
 }
 
@@ -50,7 +50,7 @@ void Camera::set_angle(GLfloat horizontal, GLint vertical) {
 
 void Camera::set_mouse_sensitivity(const HorVerInt &mouse_sensitivity) {
   this->mouse_sensitivity = mouse_sensitivity;
-  normalize_sensitivity();
+  normalize_mouse_sensitivity();
 }
 
 void Camera::set_mouse_sensitivity(GLint horizontal, GLint vertical) {
@@ -77,7 +77,7 @@ void Camera::normalize_angles() {
   }
 }
 
-void Camera::normalize_sensitivity() {
+void Camera::normalize_mouse_sensitivity() {
   GLint &h_sensitivity = mouse_sensitivity.horizontal;
   GLint &v_sensitivity = mouse_sensitivity.vertical;
   h_sensitivity = std::max(1, std::min(100, h_sensitivity));

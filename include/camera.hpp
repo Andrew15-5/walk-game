@@ -13,7 +13,7 @@ class Camera {
 
     // ========================== Normilizers =================================
     void normalize_angles();
-    void normalize_sensitivity();
+    void normalize_mouse_sensitivity();
 
     // =========================== Converters =================================
     HorVerFloat px_to_rad_multiplier();
@@ -27,7 +27,7 @@ class Camera {
     // ============================ Getters ===================================
     HorVerFloat get_angle_rad() const;
     Vector3 get_position() const;
-    HorVerInt get_sensitivity() const;
+    HorVerInt get_mouse_sensitivity() const;
 
     // ============================ Setters ===================================
     void set_angle(const HorVerFloat &angle);
