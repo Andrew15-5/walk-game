@@ -8,6 +8,25 @@
 // =============================== Private ====================================
 // ============================================================================
 
+// ============================ Normilizers ===================================
+void Camera::normalize_angles() {
+  GLfloat &h_angle = angle.horizontal;
+  GLfloat &v_angle = angle.vertical;
+  while (std::abs(h_angle) > 2 * M_PI) {
+    h_angle -= ((h_angle < 0) ? -1 : 1) * 2 * M_PI;
+  }
+  while (std::abs(v_angle) > M_PI_2) {
+    v_angle -= ((v_angle < 0) ? -1 : 1) * M_PI_2;
+  }
+}
+
+void Camera::normalize_mouse_sensitivity() {
+  GLint &h_sensitivity = mouse_sensitivity.horizontal;
+  GLint &v_sensitivity = mouse_sensitivity.vertical;
+  h_sensitivity = std::max(1, std::min(100, h_sensitivity));
+  v_sensitivity = std::max(1, std::min(100, v_sensitivity));
+}
+
 // ============================= Converters ===================================
 HorVerFloat Camera::px_to_rad_multiplier() {
   return HorVerFloat(M_PI * (mouse_sensitivity.horizontal / 100.0f) / 180.0f,
@@ -63,25 +82,6 @@ void Camera::set_position(const Vector3 &position) {
 
 void Camera::set_position(GLfloat x, GLfloat y, GLfloat z) {
   position = Vector3(x, y, z);
-}
-
-// ============================ Normilizers ===================================
-void Camera::normalize_angles() {
-  GLfloat &h_angle = angle.horizontal;
-  GLfloat &v_angle = angle.vertical;
-  while (std::abs(h_angle) > 2 * M_PI) {
-    h_angle -= ((h_angle < 0) ? -1 : 1) * 2 * M_PI;
-  }
-  while (std::abs(v_angle) > M_PI_2) {
-    v_angle -= ((v_angle < 0) ? -1 : 1) * M_PI_2;
-  }
-}
-
-void Camera::normalize_mouse_sensitivity() {
-  GLint &h_sensitivity = mouse_sensitivity.horizontal;
-  GLint &v_sensitivity = mouse_sensitivity.vertical;
-  h_sensitivity = std::max(1, std::min(100, h_sensitivity));
-  v_sensitivity = std::max(1, std::min(100, v_sensitivity));
 }
 
 // ========================= Calculate vector =================================
