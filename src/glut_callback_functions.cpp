@@ -44,21 +44,20 @@ void display() {
 
   draw_3d_axis();
 
-  // Main points
   const Vector3 left_bottom_front = Vector3(-20, 0, -50);
   const Vector3 right_top_back = Vector3(20, 20, 50);
-
-  // Composite points
-  const Vector3 left_top_front = Vector3(left_bottom_front.x,
-                                         right_top_back.y,
-                                         left_bottom_front.z);
-  const Vector3 right_bottom_back = Vector3(right_top_back.x,
-                                            left_bottom_front.y,
-                                            right_top_back.z);
-
-  draw_floor(left_bottom_front, right_bottom_back, texture_id.floor);
-  draw_4_wall_room(left_bottom_front, right_top_back, texture_id.wall);
-  draw_ceiling(left_top_front, right_top_back, texture_id.ceiling);
+  bool what_to_draw[6] = {
+      true, // Floor
+      true, // Front wall
+      true, // Right wall
+      true, // Back wall
+      true, // Left wall
+      true}; // Ceiling
+  GLuint texture_ids[3] = {
+      texture_id.floor,
+      texture_id.wall,
+      texture_id.ceiling};
+  draw_room(left_bottom_front, right_top_back, what_to_draw, texture_ids);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);

@@ -103,6 +103,39 @@ void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint 
   draw_wall({v1.x, v1.y, v2.z}, {v1.x, v2.y, v1.z}, texture_id); // Left wall
 }
 
+void draw_room(
+    Vector3 left_bottom_front,
+    Vector3 right_top_back,
+    bool what_to_draw[6],
+    GLuint texture_ids[3]) {
+  const Vector3 &v1 = left_bottom_front;
+  const Vector3 &v2 = right_top_back;
+
+  // Composite points
+  const Vector3 left_top_front = Vector3(v1.x, v2.y, v1.z);
+  const Vector3 right_bottom_back = Vector3(v2.x, v1.y, v2.z);
+
+  int do_draw = 0;
+  if (!what_to_draw or what_to_draw[do_draw++]) {
+    draw_floor(left_bottom_front, right_bottom_back, texture_ids[0]);
+  }
+  if (!what_to_draw or what_to_draw[do_draw++]) {
+    draw_wall({v1.x, v1.y, v1.z}, {v2.x, v2.y, v1.z}, texture_ids[1]);
+  }
+  if (!what_to_draw or what_to_draw[do_draw++]) {
+    draw_wall({v2.x, v1.y, v1.z}, {v2.x, v2.y, v2.z}, texture_ids[1]);
+  }
+  if (!what_to_draw or what_to_draw[do_draw++]) {
+    draw_wall({v2.x, v1.y, v2.z}, {v1.x, v2.y, v2.z}, texture_ids[1]);
+  }
+  if (!what_to_draw or what_to_draw[do_draw++]) {
+    draw_wall({v1.x, v1.y, v2.z}, {v1.x, v2.y, v1.z}, texture_ids[1]);
+  }
+  if (!what_to_draw or what_to_draw[do_draw++]) {
+    draw_ceiling(left_top_front, right_top_back, texture_ids[2]);
+  }
+}
+
 void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
   if (texture_id) {
     glEnable(GL_TEXTURE_2D);

@@ -12,6 +12,14 @@ void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id);
 void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint texture_id);
 void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id);
 
+// what_to_draw must contain [floor, front, right, back, left, ceiling] or
+// equal to nullptr if everything has to be drawn.
+// texture_ids must contain [floor, wall, ceiling].
+void draw_room(
+    Vector3 left_bottom_front,
+    Vector3 right_top_back,
+    bool what_to_draw[6],
+    GLuint texture_ids[3]);
 
 // =========================== Basic shapes ===================================
 void draw_rectangle(GLfloat width, GLfloat height, GLfloat color[3] = nullptr, GLfloat z = 0);
