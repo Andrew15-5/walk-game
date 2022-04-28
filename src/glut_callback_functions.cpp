@@ -44,14 +44,19 @@ void display() {
 
   draw_3d_axis();
 
-  const Vector3 left_back = Vector3(-100.0f, 0.0f, 100.0f);
-  const Vector3 right_front = Vector3(100.0f, 0.0f, -100.0f);
-  draw_floor(left_back, right_front, texture_id.floor);
+  const Vector3 left_bottom_front = Vector3(-20, 0, -50);
+  const Vector3 right_top_back = Vector3(20, 10, 50);
 
+  const Vector3 right_bottom_back = Vector3(right_top_back.x,
+                                            left_bottom_front.y,
+                                            right_top_back.z);
+  draw_floor(left_bottom_front, right_bottom_back, texture_id.floor);
+
+  const Vector3 right_top_front = Vector3(right_top_back.x,
+                                          right_top_back.y,
+                                          left_bottom_front.z);
   // Front wall
-  const Vector3 left_bottom_front = Vector3(-100.0f, 0.0f, -10.0f);
-  const Vector3 right_bottom_front = Vector3(100.0f, 10.0f, -10.0f);
-  draw_wall(left_bottom_front, right_bottom_front, texture_id.wall);
+  draw_wall(left_bottom_front, right_top_front, texture_id.wall);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);

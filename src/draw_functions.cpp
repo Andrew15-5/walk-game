@@ -31,9 +31,7 @@ void draw_3d_axis() {
   glColor3fv(last_color);
 }
 
-void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id) {
-  const Vector3 &v1 = corner;
-  const Vector3 &v2 = diagonally_opposite_corner;
+void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
   if (texture_id) {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_id);
@@ -42,26 +40,32 @@ void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint textu
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   }
 
-  GLfloat x_length = std::abs(v1.x - v2.x) / 4;
-  GLfloat z_length = std::abs(v1.z - v2.z) / 4;
+  GLfloat x_length = std::abs(left_front.x - right_back.x) / 4;
+  GLfloat z_length = std::abs(left_front.z - right_back.z) / 4;
 
   glBegin(GL_QUADS);
-  if (texture_id) glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(v1.x, v1.y, v1.z);
-  if (texture_id) glTexCoord2f(x_length, 0.0f);
-  glVertex3f(v2.x, v2.y, v1.z);
-  if (texture_id) glTexCoord2f(x_length, z_length);
-  glVertex3f(v2.x, v2.y, v2.z);
   if (texture_id) glTexCoord2f(0.0f, z_length);
-  glVertex3f(v1.x, v1.y, v2.z);
+  glVertex3f(left_front.x,
+             left_front.y,
+             left_front.z);
+  if (texture_id) glTexCoord2f(0.0f, 0.0f);
+  glVertex3f(left_front.x,
+             left_front.y,
+             right_back.z);
+  if (texture_id) glTexCoord2f(x_length, 0.0f);
+  glVertex3f(right_back.x,
+             right_back.y,
+             right_back.z);
+  if (texture_id) glTexCoord2f(x_length, z_length);
+  glVertex3f(right_back.x,
+             right_back.y,
+             left_front.z);
   glEnd();
 
   if (texture_id) glDisable(GL_TEXTURE_2D);
 }
 
-void draw_wall(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id) {
-  const Vector3 &v1 = corner;
-  const Vector3 &v2 = diagonally_opposite_corner;
+void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
   if (texture_id) {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_id);
@@ -70,21 +74,21 @@ void draw_wall(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint textur
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-  GLfloat x_length = std::abs(corner.x - diagonally_opposite_corner.x) / 4;
-  GLfloat y_length = std::abs(corner.y - diagonally_opposite_corner.y) / 4;
-  GLfloat z_length = std::abs(corner.z - diagonally_opposite_corner.z) / 4;
+  GLfloat x_length = std::abs(left_bottom.x - right_top.x) / 4;
+  GLfloat y_length = std::abs(left_bottom.y - right_top.y) / 4;
+  GLfloat z_length = std::abs(left_bottom.z - right_top.z) / 4;
 
   GLfloat horizontal_length = std::max(x_length, z_length);
 
   glBegin(GL_QUADS);
   if (texture_id) glTexCoord2f(0.0f, 0.0f);
-  glVertex3f(v1.x, v1.y, v1.z);
+  glVertex3f(left_bottom.x, left_bottom.y, left_bottom.z);
   if (texture_id) glTexCoord2f(horizontal_length, 0.0f);
-  glVertex3f(v2.x, v1.y, v2.z);
+  glVertex3f(right_top.x, left_bottom.y, right_top.z);
   if (texture_id) glTexCoord2f(horizontal_length, y_length);
-  glVertex3f(v2.x, v2.y, v2.z);
+  glVertex3f(right_top.x, right_top.y, right_top.z);
   if (texture_id) glTexCoord2f(0.0f, y_length);
-  glVertex3f(v1.x, v2.y, v1.z);
+  glVertex3f(left_bottom.x, right_top.y, left_bottom.z);
   glEnd();
 
   if (texture_id) glDisable(GL_TEXTURE_2D);

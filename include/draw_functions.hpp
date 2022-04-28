@@ -7,8 +7,8 @@
 
 // =========================== Complex shapes ===================================
 void draw_3d_axis();
-void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id);
-void draw_wall(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id);
+void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id);
+void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id);
 
 
 // =========================== Basic shapes ===================================
