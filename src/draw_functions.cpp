@@ -2,6 +2,33 @@
 
 #include "include/global_gl.hpp"
 
+void draw_3d_axis() {
+  // Save last color
+  GLfloat last_color[4];
+  glGetFloatv(GL_CURRENT_COLOR, last_color);
+
+  glLineWidth(2);
+  glBegin(GL_LINES);
+  // X axis: Red
+  glColor3f(1.0f, 0.0f, 0.0f);
+  glVertex3f(0, 0, 0);
+  glVertex3f(1000, 0, 0);
+
+  // Y axis: Green
+  glColor3f(0.0f, 1.0f, 0.0f);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, 1000, 0);
+
+  // Z axis: Blue
+  glColor3f(0.0f, 0.0f, 1.0f);
+  glVertex3f(0, 0, 0);
+  glVertex3f(0, 0, 1000);
+  glEnd();
+
+  // Restore last color
+  glColor3fv(last_color);
+}
+
 void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id) {
   const Vector3 &v1 = corner;
   const Vector3 &v2 = diagonally_opposite_corner;

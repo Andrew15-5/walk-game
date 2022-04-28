@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 
 // =========================== Complex shapes ===================================
+void draw_3d_axis();
 void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id);
 
 

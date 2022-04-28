@@ -42,25 +42,8 @@ void display() {
 
   camera.call_gluLookAt();
 
-  glLineWidth(2);
-  glBegin(GL_LINES);
-  // X axis: Red
-  glColor3f(1.0f, 0.0f, 0.0f);
-  glVertex3f(0, 0, 0);
-  glVertex3f(1000, 0, 0);
+  draw_3d_axis();
 
-  // Y axis: Green
-  glColor3f(0.0f, 1.0f, 0.0f);
-  glVertex3f(0, 0, 0);
-  glVertex3f(0, 1000, 0);
-
-  // Z axis: Blue
-  glColor3f(0.0f, 0.0f, 1.0f);
-  glVertex3f(0, 0, 0);
-  glVertex3f(0, 0, 1000);
-  glEnd();
-
-  glColor3f(1.0f, 1.0f, 1.0f);
   const Vector3 left_back = Vector3(-100.0f, 0.0f, 100.0f);
   const Vector3 right_front = Vector3(100.0f, 0.0f, -100.0f);
   draw_floor(left_back, right_front, texture_id.floor);
