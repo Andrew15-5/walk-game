@@ -6,9 +6,9 @@
 #include <GL/gl.h>
 
 struct Vector3 {
-    GLfloat x = 0, y = 0, z = 0;
+    GLfloat x, y, z;
 
-    Vector3(GLfloat x = 0, GLfloat y = 0, GLfloat z = 0)
+    Vector3(GLfloat x = 0.0f, GLfloat y = 0.0f, GLfloat z = 0.0f)
         : x(x), y(y), z(z) {}
 
     Vector3 abs() const {
