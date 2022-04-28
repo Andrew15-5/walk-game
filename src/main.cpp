@@ -78,4 +78,5 @@ void load_textures() {
   iluInit();
 
   load_texture(texture_path + "/floor.png", texture_id.floor);
+  load_texture(texture_path + "/wall.png", texture_id.wall);
 }
