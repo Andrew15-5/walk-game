@@ -5,12 +5,11 @@
 
 #include <GL/gl.h>
 
-// High-level functions
+// =========================== Complex shapes ===================================
+void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint texture_id);
 
-// Y-axis must be the same in both vectors.
-void draw_floor(Vector3 corner, Vector3 diagonally_opposite_corner, GLuint *texture_id);
 
-// Basic functions
+// =========================== Basic shapes ===================================
 void draw_rectangle(GLfloat width, GLfloat height, GLfloat color[3] = nullptr, GLfloat z = 0);
 void draw_square(GLfloat size, GLfloat color[3] = nullptr, GLfloat z = 0);
 void draw_parallelepiped(GLfloat width, GLfloat height, GLfloat depth, GLfloat color[3]);
