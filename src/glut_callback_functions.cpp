@@ -42,8 +42,6 @@ void display() {
 
   camera.call_gluLookAt();
 
-  draw_3d_axis();
-
   const Vector3 left_bottom_front = Vector3(-20, 0, -50);
   const Vector3 right_top_back = Vector3(20, 20, 50);
   bool what_to_draw[6] = {
