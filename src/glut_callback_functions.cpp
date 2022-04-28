@@ -118,7 +118,7 @@ void reshape(GLsizei width, GLsizei height) {
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(FOV, (GLfloat)width / height, NEAR, FAR);
+  gluPerspective(camera.get_FOV(), (GLfloat)width / height, NEAR, FAR);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();

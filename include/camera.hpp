@@ -8,11 +8,13 @@
 
 class Camera {
     HorVerFloat angle; // Unit: rad [-2π;2π]
+    GLfloat FOV; // Unit: ° [1e-6;179.999]
     HorVerInt mouse_sensitivity; // Unit: % [1;100]
     Vector3 position; // Unit: px
 
     // ========================== Normilizers =================================
     void normalize_angles();
+    void normalize_FOV();
     void normalize_mouse_sensitivity();
 
     // =========================== Converters =================================
@@ -22,16 +24,20 @@ class Camera {
     // ========================== Constructors ================================
     Camera(const Vector3 &position = {0, 0, 0},
            const HorVerFloat &angle = {0, 0},
+           GLfloat FOV = 90.0f,
            const HorVerInt &mouse_sensitivity = {100, 100});
 
     // ============================ Getters ===================================
     HorVerFloat get_angle_rad() const;
+    GLfloat get_FOV() const;
     Vector3 get_position() const;
     HorVerInt get_mouse_sensitivity() const;
 
     // ============================ Setters ===================================
     void set_angle(const HorVerFloat &angle);
     void set_angle(GLfloat horizontal, GLint vertical);
+
+    void set_FOV(GLfloat);
 
     void set_mouse_sensitivity(const HorVerInt &mouse_sensitivity);
     void set_mouse_sensitivity(GLint horizontal, GLint vertical);

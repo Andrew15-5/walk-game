@@ -20,6 +20,10 @@ void Camera::normalize_angles() {
   }
 }
 
+void Camera::normalize_FOV() {
+  FOV = std::max(1e-6f, std::min(179.999f, FOV));
+}
+
 void Camera::normalize_mouse_sensitivity() {
   GLint &h_sensitivity = mouse_sensitivity.horizontal;
   GLint &v_sensitivity = mouse_sensitivity.vertical;
@@ -38,15 +42,24 @@ HorVerFloat Camera::px_to_rad_multiplier() {
 // ============================================================================
 
 // ============================ Constructors ==================================
-Camera::Camera(const Vector3 &position, const HorVerFloat &angle, const HorVerInt &mouse_sensitivity) {
+Camera::Camera(
+    const Vector3 &position,
+    const HorVerFloat &angle,
+    GLfloat FOV,
+    const HorVerInt &mouse_sensitivity) {
   set_position(position);
   set_angle(angle);
+  set_FOV(FOV);
   set_mouse_sensitivity(mouse_sensitivity);
 }
 
 // ============================== Getters =====================================
 HorVerFloat Camera::get_angle_rad() const {
   return angle;
+}
+
+GLfloat Camera::get_FOV() const {
+  return FOV;
 }
 
 Vector3 Camera::get_position() const {
@@ -65,6 +78,11 @@ void Camera::set_angle(const HorVerFloat &angle) {
 
 void Camera::set_angle(GLfloat horizontal, GLint vertical) {
   set_angle(HorVerFloat(horizontal, vertical));
+}
+
+void Camera::set_FOV(GLfloat FOV) {
+  this->FOV = FOV;
+  normalize_FOV();
 }
 
 void Camera::set_mouse_sensitivity(const HorVerInt &mouse_sensitivity) {
