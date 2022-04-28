@@ -94,6 +94,15 @@ void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
   if (texture_id) glDisable(GL_TEXTURE_2D);
 }
 
+void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint texture_id) {
+  const Vector3 &v1 = left_bottom_front;
+  const Vector3 &v2 = right_top_back;
+  draw_wall({v1.x, v1.y, v1.z}, {v2.x, v2.y, v1.z}, texture_id); // Front wall
+  draw_wall({v2.x, v1.y, v1.z}, {v2.x, v2.y, v2.z}, texture_id); // Right wall
+  draw_wall({v2.x, v1.y, v2.z}, {v1.x, v2.y, v2.z}, texture_id); // Back wall
+  draw_wall({v1.x, v1.y, v2.z}, {v1.x, v2.y, v1.z}, texture_id); // Left wall
+}
+
 void draw_rectangle(GLfloat width, GLfloat height, GLfloat color[3], GLfloat z) {
   if (color) {
     glColor3fv(color);

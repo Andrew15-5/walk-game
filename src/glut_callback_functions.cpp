@@ -52,11 +52,7 @@ void display() {
                                             right_top_back.z);
   draw_floor(left_bottom_front, right_bottom_back, texture_id.floor);
 
-  const Vector3 right_top_front = Vector3(right_top_back.x,
-                                          right_top_back.y,
-                                          left_bottom_front.z);
-  // Front wall
-  draw_wall(left_bottom_front, right_top_front, texture_id.wall);
+  draw_4_wall_room(left_bottom_front, right_top_back, texture_id.wall);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);

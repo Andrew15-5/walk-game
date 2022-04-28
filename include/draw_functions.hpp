@@ -9,6 +9,7 @@
 void draw_3d_axis();
 void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id);
 void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id);
+void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint texture_id);
 
 
 // =========================== Basic shapes ===================================
