@@ -79,4 +79,5 @@ void load_textures() {
 
   load_texture(texture_path + "/floor.png", texture_id.floor);
   load_texture(texture_path + "/wall.png", texture_id.wall);
+  load_texture(texture_path + "/ceiling.png", texture_id.ceiling);
 }

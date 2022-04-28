@@ -12,6 +12,7 @@ extern bool key_pressed[256];
 extern struct TextureId {
     GLuint floor = 1;
     GLuint wall = 2;
+    GLuint ceiling = 3;
 } texture_id;
 
 // Horizontal/vertical

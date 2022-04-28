@@ -103,6 +103,40 @@ void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint 
   draw_wall({v1.x, v1.y, v2.z}, {v1.x, v2.y, v1.z}, texture_id); // Left wall
 }
 
+void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
+  if (texture_id) {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  }
+
+  GLfloat x_length = std::abs(left_front.x - right_back.x) / 4;
+  GLfloat z_length = std::abs(left_front.z - right_back.z) / 4;
+
+  glBegin(GL_QUADS);
+  if (texture_id) glTexCoord2f(x_length, z_length);
+  glVertex3f(left_front.x,
+             left_front.y,
+             left_front.z);
+  if (texture_id) glTexCoord2f(0.0f, z_length);
+  glVertex3f(right_back.x,
+             right_back.y,
+             left_front.z);
+  if (texture_id) glTexCoord2f(0.0f, 0.0f);
+  glVertex3f(right_back.x,
+             right_back.y,
+             right_back.z);
+  if (texture_id) glTexCoord2f(x_length, 0.0f);
+  glVertex3f(left_front.x,
+             left_front.y,
+             right_back.z);
+  glEnd();
+
+  if (texture_id) glDisable(GL_TEXTURE_2D);
+}
+
 void draw_rectangle(GLfloat width, GLfloat height, GLfloat color[3], GLfloat z) {
   if (color) {
     glColor3fv(color);
