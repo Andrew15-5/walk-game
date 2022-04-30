@@ -1,6 +1,7 @@
 #include "include/draw_functions.hpp"
 
 #include "include/global_gl.hpp"
+#include "include/texture_functions.hpp"
 
 #include <algorithm>
 
@@ -32,13 +33,7 @@ void draw_3d_axis() {
 }
 
 void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
-  if (texture_id) {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  }
+  change_current_texture(texture_id);
 
   GLfloat x_length = std::abs(left_front.x - right_back.x) / 4;
   GLfloat z_length = std::abs(left_front.z - right_back.z) / 4;
@@ -66,13 +61,7 @@ void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
 }
 
 void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
-  if (texture_id) {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-  }
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  change_current_texture(texture_id);
 
   GLfloat x_length = std::abs(left_bottom.x - right_top.x) / 4;
   GLfloat y_length = std::abs(left_bottom.y - right_top.y) / 4;
@@ -104,13 +93,7 @@ void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint 
 }
 
 void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
-  if (texture_id) {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  }
+  change_current_texture(texture_id);
 
   GLfloat x_length = std::abs(left_front.x - right_back.x) / 4;
   GLfloat z_length = std::abs(left_front.z - right_back.z) / 4;

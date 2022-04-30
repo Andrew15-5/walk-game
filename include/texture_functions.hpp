@@ -5,6 +5,7 @@
 
 #include <string>
 
+void change_current_texture(GLuint texture_id);
 void load_textures();
 
 #endif
