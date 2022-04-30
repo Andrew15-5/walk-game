@@ -9,16 +9,14 @@ Camera camera;
 
 // Note: Z axis is inverted (-z is forward)
 
+void initialize_key_pressed_array();
+void initialize_camera();
 void set_up_lighting();
 
 int main(GLint argc, GLchar **argv) {
   // Initialization
-  for (GLint i = 0; i < 256; i++) {
-    key_pressed[i] = false;
-  }
-  camera.set_position(0, 8, 8);
-  camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
-
+  initialize_key_pressed_array();
+  initialize_camera();
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
@@ -54,6 +52,17 @@ int main(GLint argc, GLchar **argv) {
   load_textures();
 
   glutMainLoop();
+}
+
+void initialize_key_pressed_array() {
+  for (GLint i = 0; i < 256; i++) {
+    key_pressed[i] = false;
+  }
+}
+
+void initialize_camera() {
+  camera.set_position(0, 8, 8);
+  camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
 }
 
 void set_up_lighting() {
