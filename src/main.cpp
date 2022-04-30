@@ -1,19 +1,14 @@
 #include "include/camera.hpp"
 #include "include/global.hpp"
-#include "include/global_gl.hpp"
 #include "include/glut_callback_functions.hpp"
-
-#include <iostream>
+#include "include/texture_functions.hpp"
 
 #include <GL/freeglut.h>
-#include <IL/il.h>
-#include <IL/ilu.h>
 
 Camera camera;
 
 // Note: Z axis is inverted (-z is forward)
 
-void load_textures();
 void set_up_lighting();
 
 int main(GLint argc, GLchar **argv) {
@@ -59,33 +54,6 @@ int main(GLint argc, GLchar **argv) {
   load_textures();
 
   glutMainLoop();
-}
-
-void load_texture(const std::string &path, GLuint texture_id) {
-  ilLoadImage(path.c_str());
-  ILinfo image_info;
-  iluGetImageInfo(&image_info);
-  iluFlipImage();
-
-  glGenTextures(1, &texture_id);
-  glBindTexture(GL_TEXTURE_2D, texture_id);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
-               image_info.Width,
-               image_info.Height,
-               0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-
-  ilDeleteImage(texture_id);
-}
-
-void load_textures() {
-  const std::string texture_path = "res/textures";
-
-  ilInit();
-  iluInit();
-
-  load_texture(texture_path + "/floor.png", texture_id.floor);
-  load_texture(texture_path + "/wall.png", texture_id.wall);
-  load_texture(texture_path + "/ceiling.png", texture_id.ceiling);
 }
 
 void set_up_lighting() {
