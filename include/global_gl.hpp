@@ -5,6 +5,7 @@
 
 extern const GLfloat NEAR;
 extern const GLfloat FAR;
+extern const GLfloat MESH_SIZE;
 
 extern bool key_pressed[256];
 

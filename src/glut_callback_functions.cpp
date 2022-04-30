@@ -51,11 +51,11 @@ void display() {
       true, // Back wall
       true, // Left wall
       true}; // Ceiling
-  GLuint texture_ids[3] = {
-      texture_id.floor,
-      texture_id.wall,
-      texture_id.ceiling};
-  draw_room(left_bottom_front, right_top_back, what_to_draw, texture_ids);
+  GLuint *texture_ids[3] = {
+      &texture_id.floor,
+      &texture_id.wall,
+      &texture_id.ceiling};
+  draw_room_mesh(left_bottom_front, right_top_back, what_to_draw, texture_ids);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
