@@ -9,9 +9,12 @@ Camera camera;
 
 // Note: Z axis is inverted (-z is forward)
 
+void enable_opengl_capabilities();
 void initialize_key_pressed_array();
 void initialize_camera();
+void set_up_opengl_callbacks();
 void set_up_lighting();
+void set_up_window(GLsizei width, GLsizei height, const char *title);
 
 int main(GLint argc, GLchar **argv) {
   // Initialization
@@ -20,27 +23,9 @@ int main(GLint argc, GLchar **argv) {
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-  // Set up window
-  glutInitWindowSize(1600, 900);
-  glutCreateWindow("Walk game");
-
-  // Set up callbacks
-  glutReshapeFunc(reshape);
-  glutDisplayFunc(display);
-  glutIdleFunc(idle);
-  glutKeyboardFunc(keyboard_key_down_event_listener);
-  glutKeyboardUpFunc(keyboard_key_up_event_listener);
-  glutSpecialFunc(keyboard_special_keys_event_listener);
-  glutPassiveMotionFunc(mouse_move_event_listener);
-  glutTimerFunc(0, move_camera, 0);
-
-  // Enable capabilities
-  glEnable(GL_CULL_FACE);
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
-  glEnable(GL_COLOR_MATERIAL);
-
+  set_up_window(1600, 900, "Walk game");
+  set_up_opengl_callbacks();
+  enable_opengl_capabilities();
   set_up_lighting();
 
   // Hide cursor
@@ -54,6 +39,14 @@ int main(GLint argc, GLchar **argv) {
   glutMainLoop();
 }
 
+void enable_opengl_capabilities() {
+  glEnable(GL_CULL_FACE);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  glEnable(GL_COLOR_MATERIAL);
+}
+
 void initialize_key_pressed_array() {
   for (GLint i = 0; i < 256; i++) {
     key_pressed[i] = false;
@@ -63,6 +56,17 @@ void initialize_key_pressed_array() {
 void initialize_camera() {
   camera.set_position(0, 8, 8);
   camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
+}
+
+void set_up_opengl_callbacks() {
+  glutReshapeFunc(reshape);
+  glutDisplayFunc(display);
+  glutIdleFunc(idle);
+  glutKeyboardFunc(keyboard_key_down_event_listener);
+  glutKeyboardUpFunc(keyboard_key_up_event_listener);
+  glutSpecialFunc(keyboard_special_keys_event_listener);
+  glutPassiveMotionFunc(mouse_move_event_listener);
+  glutTimerFunc(0, move_camera, 0);
 }
 
 void set_up_lighting() {
@@ -85,4 +89,9 @@ void set_up_lighting() {
   glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
   glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
   glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, &light0_exp);
+}
+
+void set_up_window(GLsizei width, GLsizei height, const char *title) {
+  glutInitWindowSize(width, height);
+  glutCreateWindow(title);
 }
