@@ -8,6 +8,10 @@
 
 const std::string texture_path = "res/textures";
 
+void change_current_texture(GLuint *texture_id) {
+  if (texture_id) change_current_texture(*texture_id);
+}
+
 void change_current_texture(GLuint texture_id) {
   if (texture_id) {
     glEnable(GL_TEXTURE_2D);
