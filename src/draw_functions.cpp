@@ -5,6 +5,8 @@
 
 #include <algorithm>
 
+const GLfloat texture_size_ratio = 0.25f;
+
 void draw_3d_axis() {
   // Save last color
   GLfloat last_color[4];
@@ -35,8 +37,8 @@ void draw_3d_axis() {
 void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
   change_current_texture(texture_id);
 
-  GLfloat x_length = std::abs(left_front.x - right_back.x) / 4;
-  GLfloat z_length = std::abs(left_front.z - right_back.z) / 4;
+  GLfloat x_length = std::abs(left_front.x - right_back.x) * texture_size_ratio;
+  GLfloat z_length = std::abs(left_front.z - right_back.z) * texture_size_ratio;
 
   glBegin(GL_QUADS);
   if (texture_id) glTexCoord2f(0.0f, z_length);
@@ -63,9 +65,9 @@ void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
 void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
   change_current_texture(texture_id);
 
-  GLfloat x_length = std::abs(left_bottom.x - right_top.x) / 4;
-  GLfloat y_length = std::abs(left_bottom.y - right_top.y) / 4;
-  GLfloat z_length = std::abs(left_bottom.z - right_top.z) / 4;
+  GLfloat x_length = std::abs(left_bottom.x - right_top.x) * texture_size_ratio;
+  GLfloat y_length = std::abs(left_bottom.y - right_top.y) * texture_size_ratio;
+  GLfloat z_length = std::abs(left_bottom.z - right_top.z) * texture_size_ratio;
 
   GLfloat horizontal_length = std::max(x_length, z_length);
 
@@ -95,8 +97,8 @@ void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint 
 void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
   change_current_texture(texture_id);
 
-  GLfloat x_length = std::abs(left_front.x - right_back.x) / 4;
-  GLfloat z_length = std::abs(left_front.z - right_back.z) / 4;
+  GLfloat x_length = std::abs(left_front.x - right_back.x) * texture_size_ratio;
+  GLfloat z_length = std::abs(left_front.z - right_back.z) * texture_size_ratio;
 
   glBegin(GL_QUADS);
   if (texture_id) glTexCoord2f(x_length, z_length);
