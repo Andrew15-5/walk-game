@@ -10,6 +10,7 @@ Camera camera;
 // Note: Z axis is inverted (-z is forward)
 
 void enable_opengl_capabilities();
+void hide_cursor();
 void initialize_key_pressed_array();
 void initialize_camera();
 void set_up_opengl_callbacks();
@@ -27,14 +28,11 @@ int main(GLint argc, GLchar **argv) {
   set_up_opengl_callbacks();
   enable_opengl_capabilities();
   set_up_lighting();
-
-  // Hide cursor
-  glutSetCursor(GLUT_CURSOR_NONE);
+  load_textures();
 
   // Don't repeat keyboard_key_down_event_listener call if key is held down
   glutIgnoreKeyRepeat(true);
-
-  load_textures();
+  hide_cursor();
 
   glutMainLoop();
 }
@@ -45,6 +43,10 @@ void enable_opengl_capabilities() {
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
   glEnable(GL_COLOR_MATERIAL);
+}
+
+void hide_cursor() {
+  glutSetCursor(GLUT_CURSOR_NONE);
 }
 
 void initialize_key_pressed_array() {
