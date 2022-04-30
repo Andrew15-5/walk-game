@@ -86,12 +86,28 @@ void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
 }
 
 void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint texture_id) {
-  const Vector3 &v1 = left_bottom_front;
-  const Vector3 &v2 = right_top_back;
-  draw_wall({v1.x, v1.y, v1.z}, {v2.x, v2.y, v1.z}, texture_id); // Front wall
-  draw_wall({v2.x, v1.y, v1.z}, {v2.x, v2.y, v2.z}, texture_id); // Right wall
-  draw_wall({v2.x, v1.y, v2.z}, {v1.x, v2.y, v2.z}, texture_id); // Back wall
-  draw_wall({v1.x, v1.y, v2.z}, {v1.x, v2.y, v1.z}, texture_id); // Left wall
+  Vector3 right_bottom_front = Vector3(right_top_back.x,
+                                       left_bottom_front.y,
+                                       left_bottom_front.z);
+  Vector3 right_bottom_back = Vector3(right_top_back.x,
+                                      left_bottom_front.y,
+                                      right_top_back.z);
+  Vector3 right_top_front = Vector3(right_top_back.x,
+                                    right_top_back.y,
+                                    left_bottom_front.z);
+  Vector3 left_bottom_back = Vector3(left_bottom_front.x,
+                                     left_bottom_front.y,
+                                     right_top_back.z);
+  Vector3 left_top_front = Vector3(left_bottom_front.x,
+                                   right_top_back.y,
+                                   left_bottom_front.z);
+  Vector3 left_top_back = Vector3(left_bottom_front.x,
+                                  right_top_back.y,
+                                  right_top_back.z);
+  draw_wall(left_bottom_front, right_top_front, texture_id); // Front wall
+  draw_wall(right_bottom_front, right_top_back, texture_id); // Right wall
+  draw_wall(right_bottom_back, left_top_back, texture_id); // Back wall
+  draw_wall(left_bottom_back, left_top_front, texture_id); // Left wall
 }
 
 void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
