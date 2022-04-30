@@ -150,28 +150,28 @@ void draw_room(
   const Vector3 left_top_front = Vector3(v1.x, v2.y, v1.z);
   const Vector3 right_bottom_back = Vector3(v2.x, v1.y, v2.z);
 
-  int do_draw = 0;
-  if (!what_to_draw or what_to_draw[do_draw++]) {
+  int what_to_draw_index = 0;
+  if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
     glNormal3f(0.0f, 1.0f, 0.0f);
     draw_floor(left_bottom_front, right_bottom_back, texture_ids[0]);
   }
-  if (!what_to_draw or what_to_draw[do_draw++]) {
+  if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
     glNormal3f(0.0f, 0.0f, 1.0f);
     draw_wall({v1.x, v1.y, v1.z}, {v2.x, v2.y, v1.z}, texture_ids[1]);
   }
-  if (!what_to_draw or what_to_draw[do_draw++]) {
+  if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
     glNormal3f(-1.0f, 0.0f, 0.0f);
     draw_wall({v2.x, v1.y, v1.z}, {v2.x, v2.y, v2.z}, texture_ids[1]);
   }
-  if (!what_to_draw or what_to_draw[do_draw++]) {
+  if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
     glNormal3f(0.0f, 0.0f, -1.0f);
     draw_wall({v2.x, v1.y, v2.z}, {v1.x, v2.y, v2.z}, texture_ids[1]);
   }
-  if (!what_to_draw or what_to_draw[do_draw++]) {
+  if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
     glNormal3f(1.0f, 0.0f, 0.0f);
     draw_wall({v1.x, v1.y, v2.z}, {v1.x, v2.y, v1.z}, texture_ids[1]);
   }
-  if (!what_to_draw or what_to_draw[do_draw++]) {
+  if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
     glNormal3f(0.0f, -1.0f, 0.0f);
     draw_ceiling(left_top_front, right_top_back, texture_ids[2]);
   }
