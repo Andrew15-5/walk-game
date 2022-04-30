@@ -57,7 +57,7 @@ void draw_floor(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
              left_front.z);
   glEnd();
 
-  if (texture_id) glDisable(GL_TEXTURE_2D);
+  if (texture_id) disable_texture();
 }
 
 void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
@@ -80,7 +80,7 @@ void draw_wall(Vector3 left_bottom, Vector3 right_top, GLuint texture_id) {
   glVertex3f(left_bottom.x, right_top.y, left_bottom.z);
   glEnd();
 
-  if (texture_id) glDisable(GL_TEXTURE_2D);
+  if (texture_id) disable_texture();
 }
 
 void draw_4_wall_room(Vector3 left_bottom_front, Vector3 right_top_back, GLuint texture_id) {
@@ -117,7 +117,7 @@ void draw_ceiling(Vector3 left_front, Vector3 right_back, GLuint texture_id) {
              right_back.z);
   glEnd();
 
-  if (texture_id) glDisable(GL_TEXTURE_2D);
+  if (texture_id) disable_texture();
 }
 
 void draw_room(

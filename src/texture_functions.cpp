@@ -18,6 +18,10 @@ void change_current_texture(GLuint texture_id) {
   }
 }
 
+void disable_texture() {
+  glDisable(GL_TEXTURE_2D);
+}
+
 void init_DevIL_library() {
   ilInit();
   iluInit();
