@@ -14,6 +14,7 @@ Camera camera;
 // Note: Z axis is inverted (-z is forward)
 
 void load_textures();
+void set_up_lighting();
 
 int main(GLint argc, GLchar **argv) {
   // Initialization
@@ -43,6 +44,11 @@ int main(GLint argc, GLchar **argv) {
   // Enable capabilities
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  glEnable(GL_COLOR_MATERIAL);
+
+  set_up_lighting();
 
   // Hide cursor
   glutSetCursor(GLUT_CURSOR_NONE);
@@ -80,4 +86,26 @@ void load_textures() {
   load_texture(texture_path + "/floor.png", texture_id.floor);
   load_texture(texture_path + "/wall.png", texture_id.wall);
   load_texture(texture_path + "/ceiling.png", texture_id.ceiling);
+}
+
+void set_up_lighting() {
+  // Turn off global ambient light
+  GLfloat zero[] = {0.0f, 0.0f, 0.0f, 0.0f};
+  glLightModelfv(GL_LIGHT_MODEL_AMBIENT, zero);
+
+  // Set up "flashlight" light
+  GLfloat light_pos[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+  GLfloat light0_direction[] = {0.0f, 0.0f, -1.0f};
+  GLfloat light0_ambient[] = {0.2f, 0.2f, 0.2f, 1.0f};
+  GLfloat light0_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+  GLfloat light0_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+  GLfloat cutoff = 90.0f;
+  GLfloat light0_exp = 10.0f;
+  glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+  glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, light0_direction);
+  glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
+  glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+  glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+  glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
+  glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, &light0_exp);
 }
