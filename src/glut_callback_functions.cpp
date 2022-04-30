@@ -12,6 +12,18 @@
 
 extern Camera camera;
 
+bool light0_enabled = true;
+
+void switch_light0() {
+  if (light0_enabled) {
+    glDisable(GL_LIGHT0);
+  }
+  else {
+    glEnable(GL_LIGHT0);
+  }
+  light0_enabled = !light0_enabled;
+}
+
 void move_camera(int) {
   GLfloat speed = 0.3;
   Vector3 move_vector;
@@ -71,6 +83,10 @@ void keyboard_key_down_event_listener(GLubyte key, GLint x, GLint y) {
   GLint modifiers = glutGetModifiers();
   key_pressed[key] = true;
   switch (key) {
+    case 't':
+    case 'T':
+      switch_light0();
+      break;
     case '': // Ctrl+w
     case '': // Ctrl+q
       if (modifiers == GLUT_ACTIVE_CTRL) {
@@ -98,6 +114,12 @@ void keyboard_special_keys_event_listener(GLint key, GLint x, GLint y) {
         glutFullScreenToggle();
       }
       break;
+  }
+}
+
+void mouse_click_event_listener(GLint button, GLint state, GLint x, GLint y) {
+  if (state == GLUT_LEFT_BUTTON) {
+    switch_light0();
   }
 }
 

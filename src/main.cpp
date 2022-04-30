@@ -68,6 +68,7 @@ void set_up_opengl_callbacks() {
   glutKeyboardUpFunc(keyboard_key_up_event_listener);
   glutSpecialFunc(keyboard_special_keys_event_listener);
   glutPassiveMotionFunc(mouse_move_event_listener);
+  glutMouseFunc(mouse_click_event_listener);
   glutTimerFunc(0, move_camera, 0);
 }
 
