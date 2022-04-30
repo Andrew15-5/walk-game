@@ -9,9 +9,25 @@ extern const GLfloat FAR;
 extern bool key_pressed[256];
 
 extern struct TextureId {
-    GLuint floor = 1;
-    GLuint wall = 2;
-    GLuint ceiling = 3;
+    GLuint first;
+    GLuint floor;
+    GLuint wall;
+    GLuint ceiling;
+    GLuint last;
+
+    TextureId() {
+      last = 1;
+      first = last;
+      // Add variables after this comment.
+      // Note: values are assigned starting from 1.
+      // Warning: the values are assigned dynamically, so be careful with
+      // variables order.
+      floor = last++;
+      wall = last++;
+      ceiling = last++;
+      // Don't add variables below.
+      last--;
+    }
 } texture_id;
 
 // Horizontal/vertical
