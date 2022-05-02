@@ -2,7 +2,6 @@
 
 #include "include/camera.hpp"
 #include "include/draw_functions.hpp"
-#include "include/global.hpp"
 #include "include/global_gl.hpp"
 #include "include/vector2.hpp"
 

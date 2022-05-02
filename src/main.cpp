@@ -1,5 +1,4 @@
 #include "include/camera.hpp"
-#include "include/global.hpp"
 #include "include/glut_callback_functions.hpp"
 #include "include/texture_functions.hpp"
 
@@ -60,7 +59,7 @@ void initialize_key_pressed_array() {
 void initialize_camera() {
   camera.set_position(40, 8, 70);
   camera.set_angle(M_PI / 2, 0);
-  camera.set_mouse_sensitivity(horizontal_sensetivity, vertical_sensetivity);
+  camera.set_mouse_sensitivity(5, 5);
 }
 
 void set_up_opengl_callbacks() {
