@@ -62,7 +62,7 @@ void display() {
       true, // Right wall
       true, // Back wall
       true, // Left wall
-      true}; // Ceiling
+      false}; // Ceiling
   GLuint *texture_ids[3] = {
       &texture_id.floor,
       &texture_id.wall,

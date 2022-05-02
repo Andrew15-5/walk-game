@@ -307,6 +307,20 @@ void draw_rectangle_mesh_yz(Vector3 bottom_front, Vector3 top_back, bool flip, G
   glEnd();
 }
 
+void draw_ceiling_mesh(Vector3 left_bottom_front, Vector3 right_top_back, GLuint *texture_id) {
+  change_current_texture(texture_id);
+
+  Vector3 left_top_back = Vector3(left_bottom_front.x,
+                                  right_top_back.y,
+                                  right_top_back.z);
+  Vector3 right_top_front = Vector3(right_top_back.x,
+                                    right_top_back.y,
+                                    left_bottom_front.z);
+  draw_rectangle_mesh_xz(left_top_back, right_top_front, true, texture_id);
+
+  if (texture_id) disable_texture();
+}
+
 void draw_room_mesh(
     Vector3 left_bottom_front,
     Vector3 right_top_back,
@@ -328,9 +342,6 @@ void draw_room_mesh(
   Vector3 right_bottom_front = Vector3(right_top_back.x,
                                        left_bottom_front.y,
                                        left_bottom_front.z);
-  Vector3 right_top_front = Vector3(right_top_back.x,
-                                    right_top_back.y,
-                                    left_bottom_front.z);
 
   // Iterate on what_to_draw bool array
   int what_to_draw_index = 0;
@@ -369,7 +380,7 @@ void draw_room_mesh(
 
   // Ceiling
   if (!what_to_draw or what_to_draw[what_to_draw_index++]) {
-    draw_rectangle_mesh_xz(left_top_back, right_top_front, true, texture_ids[2]);
+    draw_ceiling_mesh(left_bottom_front, right_top_back, texture_ids[2]);
   }
 
   // Restore material properties

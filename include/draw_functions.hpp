@@ -38,6 +38,11 @@ void draw_rectangle_mesh_yz(
     bool flip = false,
     GLuint *texture_id = nullptr);
 
+void draw_ceiling_mesh(
+    Vector3 left_bottom_front,
+    Vector3 right_top_back,
+    GLuint *texture_id = nullptr);
+
 // what_to_draw must contain [floor, front, right, back, left, ceiling] or
 // equal to nullptr if everything has to be drawn.
 // texture_ids must contain [&floor, &wall, &ceiling].
