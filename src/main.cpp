@@ -100,4 +100,5 @@ void set_up_lighting() {
 void set_up_window(GLsizei width, GLsizei height, const char *title) {
   glutInitWindowSize(width, height);
   glutCreateWindow(title);
+  glutFullScreen();
 }
