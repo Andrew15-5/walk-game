@@ -42,6 +42,8 @@ void enable_opengl_capabilities() {
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
+  glEnable(GL_LIGHT1);
+  glEnable(GL_LIGHT2);
   glEnable(GL_COLOR_MATERIAL);
 }
 
@@ -78,19 +80,19 @@ void set_up_lighting() {
   glLightModelfv(GL_LIGHT_MODEL_AMBIENT, zero);
 
   // Set up "flashlight" light
-  GLfloat light_pos[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+  GLfloat light0_pos[4] = {0.0f, 0.0f, 0.0f, 1.0f};
   GLfloat light0_direction[] = {0.0f, 0.0f, -1.0f};
   GLfloat light0_ambient[] = {0.2f, 0.2f, 0.2f, 1.0f};
   GLfloat light0_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
   GLfloat light0_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-  GLfloat cutoff = 90.0f;
+  GLfloat light0_cutoff = 90.0f;
   GLfloat light0_exp = 10.0f;
-  glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+  glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
   glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, light0_direction);
   glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
-  glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &cutoff);
+  glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, &light0_cutoff);
   glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, &light0_exp);
 }
 

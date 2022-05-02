@@ -6,6 +6,7 @@
 #include "include/global_gl.hpp"
 #include "include/vector2.hpp"
 
+#include <algorithm>
 #include <cmath>
 
 #include <GL/freeglut.h>
@@ -81,6 +82,34 @@ void display() {
   draw_ceiling_mesh(left_bottom_front, right_top_back, texture_ids[2]);
   glColor3f(1.0f, 1.0f, 1.0f);
   glEnable(GL_LIGHTING);
+
+  // Set up "room" light
+  GLfloat room_x_center = (left_bottom_front.x + right_top_back.x) * 0.5f;
+  GLfloat room_z_min = std::min(left_bottom_front.z, right_top_back.z);
+  GLfloat room_z_max = std::max(left_bottom_front.z, right_top_back.z);
+  GLfloat room_z_1 = (room_z_max - room_z_min) / 3 + room_z_min;
+  GLfloat room_z_2 = (room_z_max - room_z_min) / 3 * 2 + room_z_min;
+
+  GLfloat room_light_direction[] = {0.0f, -1.0f, 0.0f};
+  GLfloat room_light_ambient[] = {0.0f, 0.0f, 0.0f, 0.0f};
+  GLfloat room_light_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+  GLfloat room_light_specular[] = {0.0f, 0.0f, 0.0f, 1.0f};
+  GLfloat room_light_cutoff = 90.0f;
+  GLfloat room_light_exp = 1.0f;
+
+  GLfloat light1_pos[4] = {room_x_center, right_top_back.y, room_z_1, 1.0f};
+  GLfloat light2_pos[4] = {room_x_center, right_top_back.y, room_z_2, 1.0f};
+  glLightfv(GL_LIGHT1, GL_POSITION, light1_pos);
+  glLightfv(GL_LIGHT2, GL_POSITION, light2_pos);
+
+  for (int i = 0; i < 2; i++) {
+    glLightfv(GL_LIGHT1 + i, GL_SPOT_DIRECTION, room_light_direction);
+    glLightfv(GL_LIGHT1 + i, GL_AMBIENT, room_light_ambient);
+    glLightfv(GL_LIGHT1 + i, GL_DIFFUSE, room_light_diffuse);
+    glLightfv(GL_LIGHT1 + i, GL_SPECULAR, room_light_specular);
+    glLightfv(GL_LIGHT1 + i, GL_SPOT_CUTOFF, &room_light_cutoff);
+    glLightfv(GL_LIGHT1 + i, GL_SPOT_EXPONENT, &room_light_exp);
+  }
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
