@@ -54,8 +54,16 @@ void display() {
 
   camera.call_gluLookAt();
 
-  const Vector3 left_bottom_front = Vector3(-20, 0, -50);
-  const Vector3 right_top_back = Vector3(20, 20, 50);
+  GLfloat room_length = 100.0f;
+  GLfloat room_width = 40.0f;
+  GLfloat room_height = 20.0f;
+
+  const Vector3 left_bottom_front = Vector3(-room_width * 0.5f,
+                                            0,
+                                            -room_length * 0.5f);
+  const Vector3 right_top_back = Vector3(room_width * 0.5f,
+                                         room_height,
+                                         room_length * 0.5f);
   bool what_to_draw[6] = {
       true, // Floor
       true, // Front wall
