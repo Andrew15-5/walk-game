@@ -76,6 +76,11 @@ void display() {
       &texture_id.wall,
       &texture_id.ceiling};
   draw_room_mesh(left_bottom_front, right_top_back, what_to_draw, texture_ids);
+  glDisable(GL_LIGHTING);
+  glColor3f(0.7f, 0.7f, 0.7f);
+  draw_ceiling_mesh(left_bottom_front, right_top_back, texture_ids[2]);
+  glColor3f(1.0f, 1.0f, 1.0f);
+  glEnable(GL_LIGHTING);
 
   // Move cursor to the center of window every drawn frame
   glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
