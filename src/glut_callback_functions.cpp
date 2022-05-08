@@ -18,6 +18,22 @@ extern Piramid *piramid;
 
 bool light0_enabled = true;
 
+bool point_inside_square(Vector3 point, Vector3 square_center, GLfloat square_width) {
+  if (point.x < square_center.x - square_width * 0.5f or
+      point.x > square_center.x + square_width * 0.5f or
+      point.z < square_center.z - square_width * 0.5f or
+      point.z > square_center.z + square_width * 0.5f)
+    return false;
+  return true;
+}
+
+bool can_move(const Camera &camera, const Piramid *piramid) {
+  if (not piramid) return true;
+  return not point_inside_square(camera.get_position(),
+                                 piramid->get_position(),
+                                 piramid->get_width());
+}
+
 void switch_light0() {
   if (light0_enabled) {
     glDisable(GL_LIGHT0);
@@ -45,6 +61,9 @@ void move_camera(int) {
   }
   move_vector.normalize();
   camera.move(move_vector.x, 0, move_vector.z, speed);
+  if (not can_move(camera, piramid)) {
+    camera.move(-move_vector.x, 0, -move_vector.z, speed);
+  }
 
   // Check for keys state every 1 ms
   glutTimerFunc(1, move_camera, 0);
