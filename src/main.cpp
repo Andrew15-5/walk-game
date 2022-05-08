@@ -1,10 +1,12 @@
 #include "include/camera.hpp"
 #include "include/glut_callback_functions.hpp"
+#include "include/picture.hpp"
 #include "include/texture_functions.hpp"
 
 #include <GL/freeglut.h>
 
 Camera camera;
+Picture *Wither;
 
 // Note: Z axis is inverted (-z is forward)
 
@@ -29,11 +31,19 @@ int main(GLint argc, GLchar **argv) {
   set_up_lighting();
   load_textures();
 
+  // Add and set up picture
+  Wither = new Picture("Wither.png");
+  Vector2 picture_size(6, 6);
+  Wither->set_size(picture_size.x, picture_size.y);
+  Wither->set_angle_deg(90);
+
   // Don't repeat keyboard_key_down_event_listener call if key is held down
   glutIgnoreKeyRepeat(true);
   hide_cursor();
 
   glutMainLoop();
+
+  delete Wither;
 }
 
 void enable_opengl_capabilities() {
@@ -57,7 +67,7 @@ void initialize_key_pressed_array() {
 }
 
 void initialize_camera() {
-  camera.set_position(40, 8, 70);
+  camera.set_position(0, 8, 0);
   camera.set_angle(M_PI / 2, 0);
   camera.set_mouse_sensitivity(5, 5);
 }

@@ -3,6 +3,7 @@
 #include "include/camera.hpp"
 #include "include/draw_functions.hpp"
 #include "include/global_gl.hpp"
+#include "include/picture.hpp"
 #include "include/vector2.hpp"
 
 #include <algorithm>
@@ -11,6 +12,7 @@
 #include <GL/freeglut.h>
 
 extern Camera camera;
+extern Picture *Wither;
 
 bool light0_enabled = true;
 
@@ -66,6 +68,12 @@ void display() {
     const Vector3 right_top_back = Vector3(room_width * 0.5f,
                                            room_height,
                                            room_length * 0.5f);
+
+    glDisable(GL_LIGHTING);
+    Wither->set_position(right_top_back.x - 0.5f, room_height * 0.5f, 0);
+    Wither->draw();
+    glEnable(GL_LIGHTING);
+
     bool what_to_draw[6] = {
         true, // Floor
         true, // Front wall
