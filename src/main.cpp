@@ -1,12 +1,14 @@
 #include "include/camera.hpp"
 #include "include/glut_callback_functions.hpp"
 #include "include/picture.hpp"
+#include "include/piramid.hpp"
 #include "include/texture_functions.hpp"
 
 #include <GL/freeglut.h>
 
 Camera camera;
 Picture *Wither;
+Piramid *piramid;
 
 // Note: Z axis is inverted (-z is forward)
 

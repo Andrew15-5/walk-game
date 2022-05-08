@@ -4,6 +4,7 @@
 #include "include/draw_functions.hpp"
 #include "include/global_gl.hpp"
 #include "include/picture.hpp"
+#include "include/piramid.hpp"
 #include "include/vector2.hpp"
 
 #include <algorithm>
@@ -13,6 +14,7 @@
 
 extern Camera camera;
 extern Picture *Wither;
+extern Piramid *piramid;
 
 bool light0_enabled = true;
 
@@ -142,6 +144,14 @@ void display() {
         &texture_id.wall,
         &texture_id.ceiling};
     draw_room_mesh(left_bottom_front, right_top_back, what_to_draw, texture_ids);
+
+    if (not piramid) {
+      piramid = new Piramid(room_width * 0.25f, room_height * 0.5f);
+      piramid->set_position(0, room_height * 0.43f, -10.0f);
+      piramid->set_primary_color(0.5f, 0.5f, 0.5f);
+      piramid->set_outline_color(0.0f, 0.0f, 0.0f);
+    }
+    piramid->draw();
   }
 
   // Section 3
