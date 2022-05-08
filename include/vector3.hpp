@@ -25,8 +25,25 @@ struct Vector3 {
       return x * v.x + y * v.y + z * v.z;
     }
 
+    GLfloat length() const {
+      return std::sqrt(x * x + y * y + z * z);
+    }
+
+    void normalize() {
+      *this = normalized();
+    }
+
+    Vector3 normalized() const {
+      if (*this == Vector3(0, 0, 0)) return *this;
+      return *this / length();
+    }
+
     Vector3 operator*(GLfloat value) const {
       return Vector3(x * value, y * value, z * value);
+    }
+
+    Vector3 operator/(GLfloat value) const {
+      return Vector3(x / value, y / value, z / value);
     }
 
     Vector3 operator+(const Vector3 &v) const {

@@ -27,7 +27,7 @@ void switch_light0() {
 }
 
 void move_camera(int) {
-  GLfloat speed = 0.3;
+  GLfloat speed = 0.3f;
   Vector3 move_vector;
   if (key_pressed[GLint('d')] or key_pressed[GLint('D')]) {
     move_vector.x += 1;
@@ -41,6 +41,7 @@ void move_camera(int) {
   if (key_pressed[GLint('s')] or key_pressed[GLint('S')]) {
     move_vector.z -= 1;
   }
+  move_vector.normalize();
   camera.move(move_vector.x, 0, move_vector.z, speed);
 
   // Check for keys state every 1 ms
